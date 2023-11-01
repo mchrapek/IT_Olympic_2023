@@ -1,25 +1,27 @@
 const axios = require('axios');
+
+const API = 'http://3.71.0.11:8080/roulette-api'
 async function createPlayer() {
-    const response = await axios.post('http://52.58.115.237:8080/roulette-api/players');
+    const response = await axios.post(`${API}/players`);
     return response.data.hashname;
 }
 
 async function getChips(player) {
     let config = { headers: { Authorization : player } }
-    const response = await axios.get('http://52.58.115.237:8080/roulette-api/chips', config);
+    const response = await axios.get(`${API}/chips`, config);
     return response.data.chips;
 }
 
 async function bet(player, chips, uri) {
     let config = { headers: { Authorization : player } }
     let data = { "chips": chips }
-    const response = await axios.post(`http://52.58.115.237:8080/roulette-api/bets/${uri}`, data, config);
+    const response = await axios.post(`${API}/bets/${uri}`, data, config);
     return response.data;
 }
 
 async function spin(player, number) {
     let config = { headers: { Authorization : player } }
-    const response = await axios.post(`http://52.58.115.237:8080/roulette-api/spin/${number}`, {}, config);
+    const response = await axios.post(`${API}/spin/${number}`, {}, config);
     return response.data.chips;
 }
 
